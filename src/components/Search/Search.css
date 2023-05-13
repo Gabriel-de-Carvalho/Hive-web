@@ -1,0 +1,20 @@
+.search-main {
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.button-group-search {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-group-search button {
+  margin-left: 2vw;
+}
+
+.search-bar-main {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
