@@ -1,0 +1,9 @@
+.job-listing{
+    justify-content: center;
+    margin-top: 2vw;
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    align-items: center;
+    justify-items: center;
+    grid-row-gap: 2vh;
+}

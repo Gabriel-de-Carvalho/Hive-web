@@ -1,0 +1,21 @@
+
+.close-button{
+    display: flex;
+    justify-content: flex-end;
+}
+
+h2{
+    margin-bottom: -1%;
+}
+
+.jobPage{
+    margin-top: 20vh;
+}
+
+.jobInfo{
+    margin-left: 5vw;
+}
+
+.jobInfoTitle{
+    margin-bottom: 6vh;
+}

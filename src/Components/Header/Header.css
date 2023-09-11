@@ -1,0 +1,38 @@
+.header {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    text-align: center;
+    background-color: #187795;
+}
+
+.search-bar-header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-login{
+  color: white;
+  text-decoration: underline;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.title-logo{
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 1vw;
+}
+
+.title-logo h1{
+  cursor: pointer;
+}
+
+.header-user{
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 1.2em;
+}

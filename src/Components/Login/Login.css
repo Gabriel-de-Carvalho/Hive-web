@@ -1,0 +1,18 @@
+.login{
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-login {
+    display: grid;
+    grid-template-columns: 40% 40%;
+    align-content: space-between;
+    justify-content: center;
+    justify-items: center;
+}
+
+.login-fields{
+    width: 25%;
+}
