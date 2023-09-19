@@ -21,7 +21,10 @@ export default function Profile(){
             }
           }).then( response => {
             setUser(response.data)
-            setRenderExperiences(true);
+            if(response.data.experiences !== undefined && response.data.experiences !== null){
+                setRenderExperiences(true);
+            }
+            
         }).catch((error) => {
              console.log(error);
         })

@@ -9,7 +9,7 @@ h2{
 }
 
 .jobPage{
-    margin-top: 20vh;
+    margin-top: 10vh;
 }
 
 .jobInfo{
@@ -18,4 +18,40 @@ h2{
 
 .jobInfoTitle{
     margin-bottom: 6vh;
+}
+
+.button-applicant-group{
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}
+
+.button-applicant-group button{
+    margin-top: 10px;
+}
+
+.job-company-page{
+    margin-top: 5vh;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.participants-list{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.job-company-info{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.participants-job{
+    width: 90%;
+    margin-top: 5vh;
 }

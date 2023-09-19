@@ -1,6 +1,6 @@
 .header {
     display: grid;
-    grid-template-columns: 20% 60% 20%;
+    grid-template-columns: 15% 60% 25%;
     text-align: center;
     background-color: #187795;
 }
@@ -35,4 +35,20 @@
   flex-direction: column;
   justify-content: center;
   font-size: 1.2em;
+  align-items: center;
+}
+
+.profile-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.loggout{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
 }
