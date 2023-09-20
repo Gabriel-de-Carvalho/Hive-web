@@ -7,12 +7,15 @@ import { faCamera, faPlus } from "@fortawesome/free-solid-svg-icons";
 import "./Profile.css";
 import Experience from "../Experience/Experience";
 import FormExperience from "./FormExperience";
+import EditIcon from '@mui/icons-material/Edit';
+import { TextField } from "@mui/material";
 
 export default function Profile(){
     var auth = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [renderExperiences, setRenderExperiences] = useState(false);
-    const [renderAddExperience, setRenderAddExperience] = useState(false);
+    const [editSession, setEditSession] = useState(false);
+
     useEffect(() => {
         const token = localStorage.getItem('token');
         api.get('/user/', {
@@ -30,7 +33,17 @@ export default function Profile(){
         })
     }, [])
 
+    const handleChange = (value, property) => {
+        var userChanged = user;
+        userChanged = Object.assign(user, {property: value});
+    }
 
+    const textFieldChange = (property) => {
+        return <TextField 
+            onChange={e => handleChange(e.target.value, property)}
+            value={user[property]}
+        />
+    }
     
     return (
         <div>
@@ -41,7 +54,8 @@ export default function Profile(){
                             <FontAwesomeIcon icon={faCamera} />
                         </div>
                     <div className="profile-personal-info">
-                    <p>nome: {user.user}</p>
+                        <div className="edit-icon"> <EditIcon /></div>
+                    <p>nome: {editSession ? textFieldChange(): user.user}</p>
                     <p>email: {user.email}</p>
                     <p>função: {user.currentJob}</p>
                     </div>

@@ -23,6 +23,7 @@ const VisuallyHiddenInput = styled('input')({
 
 export default function JobPage() {
     const [file, setFile] = useState({});
+    const [fileSetted, setFileSetted] = useState(false);
     const { state } = useLocation();
     const userSession = useContext(AuthContext);
 
@@ -48,7 +49,9 @@ export default function JobPage() {
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
+        console.log(file)
         setFile(file);
+        setFileSetted(true);
     }
 
     const handleFileDownload = () => {
@@ -92,6 +95,7 @@ export default function JobPage() {
                             Selecionar Curriculo
                             <VisuallyHiddenInput type="file" onChange={handleFileChange} />
                         </Button>
+                        <p>{setFileSetted && file.name}</p>
                         <Button variant="contained" onClick={handleInscription}>Inscrever-se na vaga</Button>
                         {/* <Button variant="contained" onClick={handleFileDownload}>download</Button> */}
                     </div>

@@ -6,6 +6,7 @@ import { DatePicker, LocalizationProvider,  } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import api from "../../api";
 import { useNavigate } from "react-router-dom";
+import ModalError from "../Modals/ModalError";
 
 
 export default function Signup() {
@@ -14,6 +15,7 @@ export default function Signup() {
     const [companyInfo, setCompanyInfo] = useState({});
     const [userInfo, setUserInfo] = useState({});
     const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+    const [showError, setShowError] = useState(false);
 
     const navigate = useNavigate();
 
@@ -25,7 +27,7 @@ export default function Signup() {
             setShowLoadingScreen(true);
             // setTimeout(function() {navigate("/login")}, 5000);
             navigate("/login")
-        }).catch(response => console.log(response));
+        }).catch(response => setShowError(true));
     }
 
     const createUser = () => {
@@ -34,7 +36,7 @@ export default function Signup() {
             setShowLoadingScreen(true);
             // setTimeout(function() {navigate("/login")}, 5000);
             navigate("/login")
-        }).catch(response => console.log(response));
+        }).catch(response => setShowError(true));
 
     }
 
@@ -190,7 +192,7 @@ export default function Signup() {
             <Header />
             <div className="signup-page">
                 {showLoadingScreen ? loadingSuccessScreen : (isCompany ? formCompany : formUser)}
-                
+                {showError && <ModalError closeError={setShowError} errorMsg="usuário ja cadastrado com esse email"/>}
             </div>
         </div>
     )

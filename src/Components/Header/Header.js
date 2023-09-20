@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import "./Header.css"
 import Button from "@mui/material/Button"
 import { TextField } from '@mui/material';
@@ -8,9 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import LogoutIcon from '@mui/icons-material/Logout';
+import ModalError from '../Modals/ModalError';
 function Header() {
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
+    const [query, setQuery] = useState("");
+    const [showError, setShowError] = useState(false);
 
     const loggout = () => { 
         auth.setUser({});
@@ -18,6 +21,15 @@ function Header() {
         auth.setCompany({});
         localStorage.clear();
         navigate("/");
+    }
+
+    const search = function(){
+        if(query == ""){
+            alert("insira pelo menos uma palavra chave para a busca")
+        } else {
+            navigate('/search/', {state: {keywords: query}})
+        }
+
     }
 
     const profileUser = () => {
@@ -63,7 +75,7 @@ function Header() {
     }
     return(
         <div className='header'>
-
+            {showError && <ModalError closeError={setShowError} errorMsg="Não foi possivel encontrar vagas"/>}
             <div className='title-logo'>
                 <h1 onClick={() => {navigate("/")}}>
                     Hive
@@ -72,13 +84,13 @@ function Header() {
            
             <div className='search-bar-header'>
                     <TextField
-                        
+                        onChange={e => setQuery(e.target.value)}
                         variant='standard'
                         sx={{background: 'white',
                             mr: 2,
                             width: '80ch'}}
                     />
-                    <Button variant="contained">Pesquisar</Button>
+                    <Button variant="contained" onClick={search}>Pesquisar</Button>
             </div>
 
             {renderOptionsLogin()}

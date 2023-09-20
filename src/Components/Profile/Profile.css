@@ -43,3 +43,12 @@
     padding: 2%;
     border-radius: 2%;
 }
+
+.new-experience-button{
+    cursor: pointer;
+}
+
+.edit-icon{
+    display: flex;
+    justify-content: flex-end;
+}

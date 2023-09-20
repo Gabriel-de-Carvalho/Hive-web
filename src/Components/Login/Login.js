@@ -1,15 +1,20 @@
 import { Button, TextField, FormGroup, FormControlLabel, Switch, Box } from "@mui/material";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import api from "../../api";
 import './Login.css'
 import Header from "../Header/Header";
 import { useNavigate } from "react-router-dom";
+import AuthContext from "../../Context/UserContext";
+import ModalError from "../Modals/ModalError";
 
 function Login() {
     const [userName, setUsername] = useState("");
     const [companyEmail, setCompanyEmail] = useState("");
     const [formUser, setFormUser] = useState(true);
     const [password, setPassword] = useState("");
+    const [showError, setShowError] = useState(false);
+
+    const auth = useContext(AuthContext);
 
     const navigate = useNavigate();
     
@@ -31,7 +36,10 @@ function Login() {
                 infoLogin, config
                 ).then(response => {
                 localStorage.setItem('token', response.data);
+                auth.handleFetchInfoUser();
                 navigate("/");
+                }).catch(err => {
+                    setShowError(true);
                 })
         } else {
             var infoLogin = {
@@ -43,7 +51,10 @@ function Login() {
             ).then(response => {
                 console.log(response)
                 localStorage.setItem('token', response.data);
+                auth.handleFetchInfoUser()
                 navigate("/");
+            }).catch(err => {
+                setShowError(true);
             })
         }
         
@@ -76,6 +87,7 @@ function Login() {
                         id="password"
                         label="Senha"
                         variant="filled"
+                        type="password"
                         onChange={e => setPassword(e.target.value)}
                         fullWidth
                         sx={{
@@ -146,6 +158,7 @@ function Login() {
             <Header></Header>
             <div className="login">
                 {formUser ? userLoginForm : companyLoginForm}
+                {showError && <ModalError closeError={setShowError} errorMsg="Não há usuário cadastrado com esse email"/>}
             </div>
         </div>
     )

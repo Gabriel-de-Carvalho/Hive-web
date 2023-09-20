@@ -21,6 +21,10 @@ function App() {
   const [logged, setLogged] = useState(false);
   const [company, setCompany] = useState({});
   useEffect(() => {
+    handleFetchInfoUser();
+  },[])
+
+  const handleFetchInfoUser = () =>{
     if(localStorage.getItem('token') != null){
       const token = localStorage.getItem('token');
 
@@ -41,7 +45,7 @@ function App() {
       })
 
     }
-  },[])
+  }
 
   const logUser = (token) => {
     api.get('/user/', {
@@ -80,7 +84,7 @@ var handleJobPage = () => {
 
   return (
     <Router>
-      <AuthContext.Provider value={{user, logged, setUser, setLogged, company, setCompany}}>
+      <AuthContext.Provider value={{user, logged, setUser, setLogged, company, setCompany, handleFetchInfoUser}}>
       <Routes>
         <Route path='/' element={<LandPage/>}/>
         <Route path='/login' element={<Login/>}/>

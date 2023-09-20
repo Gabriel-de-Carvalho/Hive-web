@@ -4,9 +4,11 @@ import { useLocation } from "react-router-dom";
 import Header from "../Header/Header";
 import JobCard from "../../JobCard/JobCard";
 import './Search.css'
+import ModalError from "../Modals/ModalError";
 
 export default function Search(){
     const [jobListing, setJobListing] = useState([]);
+    const [showError, setShowError] = useState(false);
     const {state} = useLocation();
     useEffect(() => {
             var keywords = state.keywords;
@@ -24,6 +26,9 @@ export default function Search(){
                 }
             ).then(response => {
                 setJobListing(response.data)
+            }).catch(err => {
+                setShowError(true)
+                console.log(err.response);
             });
     }, []);
 
@@ -34,6 +39,7 @@ export default function Search(){
             {jobListing.map(job => <JobCard props={job}/>
                 )}
             </div>
+            {showError && <ModalError closeError={setShowError} errorMsg="Não foi possivel encontrar vagas"/>}
         </div>
     )
 }
