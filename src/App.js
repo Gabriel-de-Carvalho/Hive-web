@@ -13,8 +13,10 @@ import Search from './Components/Search/Search';
 import api from './api';
 import Profile from './Components/Profile/Profile';
 import Signup from './Components/Signup/Signup';
-import CompanyPage from './Components/CompanyPage/CompanyPage';
+import OpenJobsCompanyPage from './Components/CompanyPages/OpenJobsCompanyPage';
 import JobPageCompany from './Components/JobPage/JobPageCompany';
+import ClosedJobsCompanyPage from './Components/CompanyPages/ClosedJobsCompanyPage';
+import CompanyProfilePage from './Components/CompanyPages/CompanyProfilePage';
 
 function App() {
   const [user, setUser] = useState({});
@@ -92,7 +94,9 @@ var handleJobPage = () => {
         <Route path='/job/' element={handleJobPage()}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/signup' element={<Signup/>} />
-        <Route path='/companyPage' element={<CompanyPage/>} />
+        <Route path='/openJobs' element={<OpenJobsCompanyPage/>} />
+        <Route path='/closedJobs' element={<ClosedJobsCompanyPage/>} />
+        <Route path='/companyProfile' element={<CompanyProfilePage/>} />
       </Routes>
     </AuthContext.Provider>
     </Router>

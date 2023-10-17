@@ -10,7 +10,13 @@ export default function ParticipantsList(props) {
 
     const handleOpenCurriculum = () =>{
         console.log(props)
-        api.get("/job/"+ props.job + "/applicant/" + props.participant.email +"/curriculum/", {responseType: "blob"})
+        const token = localStorage.getItem("token")
+        api.get("/job/"+ props.job + "/applicant/" + props.participant.email +"/curriculum/", {
+            responseType: "blob",
+            headers:{
+                Authorization: "Bearer " + token
+            }
+        })
         .then(response => {
             console.log(response)
             const file = new Blob([response.data], { type: 'application/pdf' });

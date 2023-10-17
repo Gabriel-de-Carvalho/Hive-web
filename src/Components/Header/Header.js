@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import "./Header.css"
 import Button from "@mui/material/Button"
-import { TextField } from '@mui/material';
+import { TextField, Menu, MenuItem} from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../Context/UserContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -9,11 +9,25 @@ import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import LogoutIcon from '@mui/icons-material/Logout';
 import ModalError from '../Modals/ModalError';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
 function Header() {
     const navigate = useNavigate();
     const auth = useContext(AuthContext);
     const [query, setQuery] = useState("");
     const [showError, setShowError] = useState(false);
+    const [anchorEl, setAnchorEl] = useState(null);
+    const openMenu = Boolean(anchorEl);
+
+    const handleClickMenu = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleCloseMenu = (event) => {
+        event.stopPropagation();
+        setAnchorEl(null);
+        console.log(event);
+    };
 
     const loggout = () => { 
         auth.setUser({});
@@ -32,6 +46,18 @@ function Header() {
 
     }
 
+    const handleMenuNavigation = (event) => {
+        const textMenu = event.target.innerText;
+
+        if(textMenu === "meu perfil"){
+            navigate("/companyProfile");
+        } else if (textMenu === "vagas em aberto"){
+            navigate("/openJobs")
+        } else if (textMenu === "vagas encerradas"){
+            navigate("/closedJobs")
+        };
+
+    }
     const profileUser = () => {
         return <div className="header-user">
                         <FontAwesomeIcon icon={faUserTie} size="2xl" onClick={() => navigate("/profile")}/>
@@ -40,10 +66,22 @@ function Header() {
     }
 
     const profileCompany = () => {
-        return <div className="header-user">
+        return <div className="header-user" onClick={handleClickMenu}>
             {console.log("empresa")}
-            <ApartmentIcon sx={{fontSize: 40}} onClick={() => navigate("/companyPage")}/>
-            <a onClick={() => navigate("/companyPage")}>{auth.company.companyName}</a>
+            <ApartmentIcon sx={{fontSize: 40}}/>
+            
+            <Menu
+            id="profile-menu"
+            anchorEl={anchorEl}
+            open={openMenu}
+            onClick={handleCloseMenu}
+            >
+                <MenuItem onClick={handleMenuNavigation}>meu perfil</MenuItem>
+                <MenuItem onClick={handleMenuNavigation}>vagas em aberto</MenuItem>
+                <MenuItem onClick={handleMenuNavigation}>vagas encerradas</MenuItem>
+            </Menu>
+            {auth.company.companyName}
+            
         </div>
     }
 
@@ -56,11 +94,10 @@ function Header() {
 
 
     const renderOptionsLogin = () => {
-        console.log(!auth.logged)
         if(!auth.logged){
             return <div className="header-login">
-                 <Button sx={{background: "white", color: "black", borderRadius: 4}} variant='contained' onClick={() => navigate('/login')}>Entrar</Button>
-                 <Button onClick={() => navigate("/signup")} variant="contained">Cadastrar-se</Button>
+                 <Button sx={{background: "white", color: "black", borderRadius: 4, mr: 4}} variant='contained' onClick={() => navigate('/login')}>Entrar</Button>
+                 <Button sx={{mr: 4}}onClick={() => navigate("/signup")} variant="contained">Cadastrar-se</Button>
             </div> 
         } else {
             return <div className='profile-header'>

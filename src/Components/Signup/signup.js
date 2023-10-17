@@ -22,6 +22,7 @@ export default function Signup() {
     
 
     const createCompany = () => {
+        localStorage.removeItem("token");
         api.post("/company/", companyInfo).then(response => {
             console.log(response)
             setShowLoadingScreen(true);

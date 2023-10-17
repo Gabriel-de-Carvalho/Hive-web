@@ -4,16 +4,23 @@
     justify-content: flex-end;
 }
 
-h2{
-    margin-bottom: -1%;
-}
-
 .jobPage{
-    margin-top: 10vh;
+    display: flex;
+    margin-top: 5vh;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .jobInfo{
-    margin-left: 5vw;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+    padding: 23px;
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 25%) 0px 10px 36px 0px, rgb(0 0 0 / 21%) 0px 0px 0px 1px;
 }
 
 .jobInfoTitle{
@@ -54,4 +61,15 @@ h2{
 .participants-job{
     width: 90%;
     margin-top: 5vh;
+}
+
+.list-jobs-header{
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.55);
+    padding: 0.3em 0;
 }

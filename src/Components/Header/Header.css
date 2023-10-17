@@ -1,6 +1,6 @@
 .header {
     display: grid;
-    grid-template-columns: 15% 60% 25%;
+    grid-template-columns: 15% 65% 20%;
     text-align: center;
     background-color: #187795;
 }
@@ -16,7 +16,7 @@
   text-decoration: underline;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .title-logo{
@@ -36,6 +36,7 @@
   justify-content: center;
   font-size: 1.2em;
   align-items: center;
+  cursor: pointer;
 }
 
 .profile-header{
@@ -51,4 +52,5 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
+    cursor: pointer;
 }

@@ -1,0 +1,88 @@
+.company-page .open-job-list .closed-job-list{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+
+.new-job-form{
+    width: 98%;
+    display: flex;
+    align-items: center;
+}
+
+.new-job-form p{
+    margin-left: 5px;
+}
+
+.company-job-options{
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+}
+
+.list-jobs{
+    margin-top: 3em;
+    width: 98%;
+
+}
+
+.job-list{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
+.closed-job-list-page, .open-job-list{
+    margin: 2em;
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+}
+
+.profile-company-page{
+    display: flex;
+    justify-content: center;
+}
+
+.profile-company-card{
+    margin: 2em;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+    padding: 1%;
+    border-radius: 20px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.profile-company{
+    width: 80%;
+}
+.profile-company-name{
+    font-size: 1.5em;
+}
+
+.profile-company-info{
+    margin: 1.5em 0;
+    font-size: 1.3em;
+}
+
+.error-msg{
+    color:red;
+}
+
+.info-buttons-action{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+
+
+
+

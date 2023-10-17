@@ -8,30 +8,107 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import api from "../../api";
 import Collapse from '@mui/material/Collapse';
 
-export default function FormExperience() {
+export default function FormExperience(props) {
     const [currentJobCheckBox, setCurrentJobCheckBox] = useState(true);
     const [experienceInfo, setExperienceInfo] = useState({});
     const [renderAddExperience, setRenderAddExperience] = useState(false);
 
+    const [functionNameValidate, setFunctionNameValidate] = useState(false);
+    const [companyNameValidate, setCompanyNameValidate] = useState(false);
+    const [beginDateValidate, setBeginDateValidate] = useState(false);
+    const [endDateValidate, setEndDateValidate] = useState(false)
+
+    const [validForm, setValidForm] = useState(false);
+
+    const [validationFormFields, setValidationFormFields] = useState({
+        functionName: false,
+        companyName: false,
+        endDate: false,
+    })
+
+    const [functionName, setFunctionName] = useState(false);
+
     function onChangeCurrentJob() {
         setCurrentJobCheckBox(!currentJobCheckBox)
-        setExperienceInfo(Object.assign(experienceInfo, { "currentJob": !currentJobCheckBox }))
         console.log(!currentJobCheckBox)
     }
 
     function requestNewExperience() {
-        var token = localStorage.getItem("token");
-        if (token !== undefined && token !== "") {
-            api.put("/user/experience/", experienceInfo, {
-                headers: {
-                    Authorization: "Bearer " + token
-                }
-            }).then(response => {
-                setRenderAddExperience(false);
-            });
+        if (validateForm()) {
+            var token = localStorage.getItem("token");
+            setExperienceInfo(Object.assign(experienceInfo, { "currentJob": !currentJobCheckBox }))
+            if (token !== undefined && token !== "") {
+                api.put("/user/experience/", experienceInfo, {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                }).then(response => {
+                    props.setExperiences(response.data)
+                    setRenderAddExperience(false);
+                });
+            }
         }
 
     }
+
+    const validateForm = () => {
+        console.log(experienceInfo);
+        if (functionNameValidate) {
+            return false;
+        }
+        if (companyNameValidate) {
+            return false;
+        }
+        if (beginDateValidate) {
+            return false;
+        }
+        if (endDateValidate) {
+            return false;
+        }
+
+        return true;
+    }
+
+    const handleFunctionNameChange = (event) => {
+        const value = event.target.value;
+        console.log(value)
+        if (typeof value === "undefined" || value === "") {
+            setFunctionNameValidate(true);
+        } else {
+            setFunctionNameValidate(false);
+            setExperienceInfo(Object.assign(experienceInfo, { "jobTitle": value }))
+        }
+    }
+
+    const handleCompanyNameChange = (event) => {
+        const value = event.target.value;
+        if (typeof value === "undefined" || value === "") {
+            setCompanyNameValidate(true);
+        } else {
+            setCompanyNameValidate(false);
+            setExperienceInfo(Object.assign(experienceInfo, { "companyId": value }))
+        }
+    }
+
+    const handleDateBeginChange = (value) => {
+        console.log(value)
+        if (typeof value === "undefined" || value === null) {
+            setBeginDateValidate(true);
+        } else {
+            setBeginDateValidate(false);
+            setExperienceInfo(Object.assign(experienceInfo, { "dateInit": value }))
+        }
+    }
+
+    const handleDateEndChange = (value) => {
+        if ((typeof value === "undefined" || value === null) && currentJobCheckBox) {
+            setEndDateValidate(true);
+        } else {
+            setEndDateValidate(false);
+            setExperienceInfo(Object.assign(experienceInfo, { "dateEnd": value }))
+        }
+    }
+
 
     const formAddExperience = () => {
         return <div className="form-experience">
@@ -40,7 +117,9 @@ export default function FormExperience() {
                     label="Nome do função realizada"
                     id="outlined-start-adornment"
                     fullWidth
-                    onChange={(value) => setExperienceInfo(Object.assign(experienceInfo, { "jobTitle": value.target.value }))}
+                    onChange={handleFunctionNameChange}
+                    error={functionNameValidate}
+                    helperText="Campo de função exercida não pode ser vazio"
                     sx={{ m: 1 }}
                 />
             </Box>
@@ -49,7 +128,9 @@ export default function FormExperience() {
                     label="Nome da Empresa"
                     id="outlined-start-adornment"
                     fullWidth
-                    onChange={(value) => setExperienceInfo(Object.assign(experienceInfo, { "companyId": value.target.value }))}
+                    onChange={handleCompanyNameChange}
+                    error={companyNameValidate}
+                    helperText="Nome da empresa não pode ser vazio"
                     sx={{ m: 1 }}
                 />
             </Box>
@@ -58,14 +139,26 @@ export default function FormExperience() {
                     <DatePicker
                         label="data de inicio"
                         format="DD/MM/YYYY"
-                        onChange={(value) => setExperienceInfo(Object.assign(experienceInfo, { "dateInit": value }))}
+                        error={beginDateValidate}
+                        onChange={handleDateBeginChange}
                         sx={{ m: 1, width: '25ch' }}
+                        slotProps={{
+                            textField: {
+                                error: beginDateValidate,
+                            },
+                        }}
                     />
                     {!currentJobCheckBox && <DatePicker
                         label="data de termino"
                         format="DD/MM/YYYY"
-                        onChange={(value) => setExperienceInfo(Object.assign(experienceInfo, { "dateEnd": value }))}
+                        onChange={handleDateEndChange}
                         sx={{ m: 1, width: '25ch' }}
+                        slotProps={{
+                            textField: {
+                                error: endDateValidate,
+                            },
+                        }}
+                        helperText="se não é o emprego atual, insira uma data de termino"
                         hiden
                     />}
                 </LocalizationProvider>
@@ -97,9 +190,10 @@ export default function FormExperience() {
         setRenderAddExperience(!renderAddExperience)
     }
 
+
     return (
         <div>
-            <div onClick={handleFormRender} className="new-experience-button"><FontAwesomeIcon  icon={faPlus} /> adicionar experiencia</div>
+            <div onClick={handleFormRender} className="new-experience-button"><FontAwesomeIcon icon={faPlus} /> adicionar experiencia</div>
             <Collapse in={renderAddExperience}>{formAddExperience()}</Collapse>
         </div>
     )

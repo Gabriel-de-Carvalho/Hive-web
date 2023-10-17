@@ -11,10 +11,7 @@ const handleSetToken = () => {
 }
 
 const api = axios.create({
-    baseURL : "http://localhost:8080",
-    headers: {
-        Authorization: handleSetToken()
-    }
+    baseURL : "http://localhost:8080"
 })
 
 export default api;

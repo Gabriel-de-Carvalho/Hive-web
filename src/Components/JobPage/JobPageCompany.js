@@ -11,7 +11,12 @@ export default function JobPageCompany(){
     const [participants, setParticipants] = useState([]);
 
     useEffect( () =>{
-        api.get("/job/"+ state.jobInfo.id +"/participants")
+        const token = localStorage.getItem("token")
+        api.get("/job/"+ state.jobInfo.id +"/participants", {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
         .then(response => {
             setParticipants(response.data.participants)
 
@@ -33,7 +38,12 @@ export default function JobPageCompany(){
     }
 
     const handleCloseJob = () => {
-        api.put("/job/" + state.jobInfo.id + "/close")
+        const token = localStorage.getItem("token")
+        api.put("/job/" + state.jobInfo.id + "/close", {}, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        })
         .then(response => console.log(response.data))
     }
 
@@ -59,6 +69,11 @@ export default function JobPageCompany(){
                 <div className="participants-job">
                     <h2>Participantes</h2>
                     <div className="participants-list">
+                    <div className="list-jobs-header">
+                        <div>Nome do participante</div>
+                        <div>email</div>
+                        <div>curriculo</div>
+                    </div>
                         {handleParticipantsListing()}
                     </div>
                 </div>
