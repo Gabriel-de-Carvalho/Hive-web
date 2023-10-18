@@ -1,7 +1,8 @@
 import React, { useContext, useState } from "react";
 import Header from "../Header/Header";
 import AuthContext from "../../Context/UserContext";
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Box, Modal, TextField } from "@mui/material";
+import { Button } from "@mui/joy";
 import "./companyPage.css";
 import api from "../../api";
 import ModalDeleteAccount from "../Modals/ModalDeleteAccount";
@@ -110,8 +111,8 @@ export default function CompanyProfilePage() {
                     </div>
                     
                     <div className="profile-company-info info-buttons-action">
-                        <Button onClick={() => setCompanyInfoModalShow(true)} variant="contained" sx={{mr: 3, background: "blue"}}>Editar perfil</Button>
-                        <Button onClick= {() => setShowModalDeleteAccount(true)} variant="contained" sx={{background: "red"}}>Deletar perfil</Button>
+                        <Button onClick={() => setCompanyInfoModalShow(true)} variant="primary" sx={{mr: 3, background: "blue"}}>Editar perfil</Button>
+                        <Button onClick={() => setShowModalDeleteAccount(true)} variant="solid" color="danger">Deletar perfil</Button>
                     </div>
                     </div>
                 </div>
@@ -211,8 +212,9 @@ export default function CompanyProfilePage() {
                     </Box>
                     <Box sx={{ display: "flex" }}>
                         <Button
-                            variant="contained"
                             onClick={handleSubmitForm}
+                            variant="solid" 
+                            color='primary'
                             sx={{ m: 1 }}
                             >
                             Atualizar cadastro
@@ -220,7 +222,7 @@ export default function CompanyProfilePage() {
                     </Box>
                 </Box>
             </Modal>
-           {showModalDeleteAccount && <ModalDeleteAccount closeDelete={setShowModalDeleteAccount}/>}
+           {showModalDeleteAccount && <ModalDeleteAccount isUser={false} closeDelete={setShowModalDeleteAccount}/>}
         </div>
     )
 }

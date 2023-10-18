@@ -18,6 +18,23 @@ export default function FormExperience(props) {
     const [beginDateValidate, setBeginDateValidate] = useState(false);
     const [endDateValidate, setEndDateValidate] = useState(false)
 
+    const [formExperienceInfo, setFormExperienceInfo] = useState({
+        jobTitle: "",
+        dateInit: "",
+        jobDesc: "",
+        currentJob: true,
+        dateEnd: "",
+        companyId: ""
+    })
+
+    const [formExperienceErrorMsg, setFormExperienceErrorMsg] = useState({
+        jobTitle: "",
+        dateInit: "",
+        jobDesc: "",
+        dateEnd: "",
+        companyId: ""
+    })
+
     const [validForm, setValidForm] = useState(false);
 
     const [validationFormFields, setValidationFormFields] = useState({
@@ -33,12 +50,36 @@ export default function FormExperience(props) {
         console.log(!currentJobCheckBox)
     }
 
+    const onChangeValues = (e) => {
+        const {value, name} = e.target
+        if(name ==="currentJob") {
+            setFormExperienceInfo({...formExperienceInfo, [name]: !formExperienceInfo.currentJob})
+        } else {
+            setFormExperienceInfo({...formExperienceInfo, [name]: value})
+        }
+        
+    }
+
+
+    const validateForm = () => {
+        const newErrors = {
+            jobTitle: formExperienceInfo.jobTitle === '' ? "Nome da função não pode ser vazio" : '',
+            dateInit: formExperienceInfo.dateInit === '' ? "Escolha uma data válida de inicio": '',
+            jobDesc: formExperienceInfo.jobDesc === '' ? "Adicione uma descrição das atividades feitas durante o trabalho": '',
+            dateEnd: (formExperienceInfo.dateEnd === '' && formExperienceInfo.currentJob === true) ? "Escolha uma data válida de termino": '',
+            companyId: formExperienceInfo.companyId === '' ? "É precisa informar a empresa" : ""
+        }
+
+        setFormExperienceErrorMsg(newErrors);
+        return Object.values(newErrors).every((error) => error === '');
+    }
+
+
     function requestNewExperience() {
         if (validateForm()) {
             var token = localStorage.getItem("token");
-            setExperienceInfo(Object.assign(experienceInfo, { "currentJob": !currentJobCheckBox }))
             if (token !== undefined && token !== "") {
-                api.put("/user/experience/", experienceInfo, {
+                api.put("/user/experience/", formExperienceInfo, {
                     headers: {
                         Authorization: "Bearer " + token
                     }
@@ -51,23 +92,6 @@ export default function FormExperience(props) {
 
     }
 
-    const validateForm = () => {
-        console.log(experienceInfo);
-        if (functionNameValidate) {
-            return false;
-        }
-        if (companyNameValidate) {
-            return false;
-        }
-        if (beginDateValidate) {
-            return false;
-        }
-        if (endDateValidate) {
-            return false;
-        }
-
-        return true;
-    }
 
     const handleFunctionNameChange = (event) => {
         const value = event.target.value;
@@ -117,10 +141,12 @@ export default function FormExperience(props) {
                     label="Nome do função realizada"
                     id="outlined-start-adornment"
                     fullWidth
-                    onChange={handleFunctionNameChange}
-                    error={functionNameValidate}
-                    helperText="Campo de função exercida não pode ser vazio"
                     sx={{ m: 1 }}
+                    name="jobTitle"
+                    error={!!formExperienceErrorMsg.jobTitle}
+                    helperText={formExperienceErrorMsg.jobTitle}
+                    onChange={onChangeValues}
+                    value={formExperienceInfo.jobTitle}
                 />
             </Box>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -128,10 +154,12 @@ export default function FormExperience(props) {
                     label="Nome da Empresa"
                     id="outlined-start-adornment"
                     fullWidth
-                    onChange={handleCompanyNameChange}
-                    error={companyNameValidate}
-                    helperText="Nome da empresa não pode ser vazio"
                     sx={{ m: 1 }}
+                    name="companyId"
+                    error={!!formExperienceErrorMsg.companyId}
+                    helperText={formExperienceErrorMsg.companyId}
+                    onChange={onChangeValues}
+                    value={formExperienceInfo.companyId}
                 />
             </Box>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -139,26 +167,30 @@ export default function FormExperience(props) {
                     <DatePicker
                         label="data de inicio"
                         format="DD/MM/YYYY"
-                        error={beginDateValidate}
-                        onChange={handleDateBeginChange}
+                        error={!!formExperienceErrorMsg.dateInit}
+                        helperText={formExperienceErrorMsg.dateInit}
+                        onChange={(value) => setFormExperienceInfo({...formExperienceInfo, "dateInit": value})}
+                        name="dateInit"
                         sx={{ m: 1, width: '25ch' }}
                         slotProps={{
                             textField: {
-                                error: beginDateValidate,
+                                error: !!formExperienceErrorMsg.dateInit,
                             },
                         }}
                     />
-                    {!currentJobCheckBox && <DatePicker
+                    {formExperienceInfo.currentJob && <DatePicker
                         label="data de termino"
                         format="DD/MM/YYYY"
-                        onChange={handleDateEndChange}
                         sx={{ m: 1, width: '25ch' }}
+                        error={!!formExperienceErrorMsg.dateEnd}
+                        helperText={formExperienceErrorMsg.dateEnd}
+                        onChange={(value) => setFormExperienceInfo({...formExperienceInfo, "dateEnd": value})}
+                        name="dateEnd"
                         slotProps={{
                             textField: {
-                                error: endDateValidate,
+                                error: !!formExperienceErrorMsg.dateEnd,
                             },
                         }}
-                        helperText="se não é o emprego atual, insira uma data de termino"
                         hiden
                     />}
                 </LocalizationProvider>
@@ -166,8 +198,10 @@ export default function FormExperience(props) {
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                 <FormGroup>
                     <FormControlLabel control={<Switch defaultChecked />}
-                        checked={currentJobCheckBox}
-                        onChange={onChangeCurrentJob}
+                        checked={formExperienceInfo.currentJob}
+                        onClick={onChangeValues}
+                        value={formExperienceInfo.currentJob}
+                        name="currentJob"
                         label="Emprego atual" />
                 </FormGroup>
             </Box>
@@ -176,8 +210,12 @@ export default function FormExperience(props) {
                     multiline
                     label="descrição das atividades realizadas"
                     fullWidth
-                    onChange={(value) => setExperienceInfo(Object.assign(experienceInfo, { "jobDesc": value.target.value }))}
                     sx={{ m: 1 }}
+                    name="jobDesc"
+                    error={!!formExperienceErrorMsg.jobDesc}
+                    helperText={formExperienceErrorMsg.jobDesc}
+                    onChange={onChangeValues}
+                    value={formExperienceInfo.jobDesc}
                 />
             </Box>
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>

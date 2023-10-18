@@ -8,13 +8,20 @@ import "./Profile.css";
 import Experience from "../Experience/Experience";
 import FormExperience from "./FormExperience";
 import EditIcon from '@mui/icons-material/Edit';
-import { TextField, Modal, Box, Button} from "@mui/material";
+import { TextField, Modal, Box} from "@mui/material";
+import Typography from '@mui/material/Typography';
+import { Button } from "@mui/joy";
+import ModalDeleteAccount from "../Modals/ModalDeleteAccount";
+import ModalSuccess from "../Modals/ModalSuccess";
 
 export default function Profile() {
     var auth = useContext(AuthContext);
     const [user, setUser] = useState({});
     const [renderExperiences, setRenderExperiences] = useState(false);
     const [experiences, setExperiences] = useState([]);
+    const [showModalDelete, setShowModalDelete] = useState(false);
+    const [showModalSuccess, setShowModalSuccess] = useState(false)
+    const [successMsg, setSuccessMsg] = useState('');
 
     // useState referente ao modal
     const [userInfoModal, setUserInfoModal] = useState(false);
@@ -79,21 +86,25 @@ export default function Profile() {
     const handleUpdateUserSubmit = (e) => {
         e.preventDefault();
 
-        if (validateForm()) {
             userInfo.email = auth.user.email;
             const token = localStorage.getItem("token")
             api.put('/user/',  userInfo, {
                 headers: {
                     Authorization: "Bearer " + token
                 }
-            }).then(response => { setUser(response.data) })
+            }).then(response => { 
+                setUser(response.data) 
+                setSuccessMsg("Dados alterados com sucesso!")
+                setShowModalSuccess(true);
+                setUserInfoModal(false);
+
+            })
             setUserInfo({
                 user: "",
                 email: "",
                 bio: "",
                 currentJob: "",
             })
-        }
     }
 
     return (
@@ -101,18 +112,21 @@ export default function Profile() {
             <Header />
             <div className="profile-page">
                 <div className="profile-info card">
-                    <div className="profile-photo">
+                    {/* <div className="profile-photo">
                         <FontAwesomeIcon icon={faCamera} />
-                    </div>
+                    </div> */}
                     <div className="profile-personal-info">
                         <div className="edit-icon" onClick={() => setUserInfoModal(true)}> <EditIcon /></div>
-                        <p>nome: {user.user}</p>
-                        <p>email: {user.email}</p>
-                        <p>função: {user.currentJob}</p>
+                        <Typography variant="h4" mb={2}>{user.user}</Typography>
+                        <Typography variant="h6" mb={2}>{user.email}</Typography> 
+                        {!!user.currentJob ? <Typography variant="h6" mb={2}>{user.currentJob}</Typography> : <div></div>}
                     </div>
                     <div className="profile-personal-bio">
-                        <p>Sobre mim:</p>
+                        <p><h3>Sobre mim</h3></p>
                         <p>{user.bio}</p>
+                    </div>
+                    <div className="profile-action-button">
+                        <Button onClick={() => setShowModalDelete(true)} color="danger" variant="solid">Apagar Perfil</Button>
                     </div>
                 </div>
                 <div className="profile-experiences card">
@@ -183,6 +197,8 @@ export default function Profile() {
                     </Box>
                 </Box>
             </Modal>
+            {showModalDelete && <ModalDeleteAccount isUser={true} closeDelete={setShowModalDelete}/>}
+            {showModalSuccess && <ModalSuccess  successMsg={successMsg} closeDelete={setShowModalSuccess} />}
         </div>
     )
 }

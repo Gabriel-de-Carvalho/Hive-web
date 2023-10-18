@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import { Button } from "@mui/joy";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -22,12 +22,12 @@ const style = {
 };
 
 export default function ModalDeleteAccount(props) {
-
+    console.log(props.isUser)
     const navigate = useNavigate();
     const [open, setOpen] = useState(true);
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
-        props.closeDelete(false);
+        props.closeDelete(false)
     };
     const [step, setStep] = useState(1);
     const auth = useContext(AuthContext)
@@ -57,7 +57,7 @@ export default function ModalDeleteAccount(props) {
                     Todos os dados referentes a ela serão perdidos.
                 </Typography>
                 <Box sx={{m: 2}}>
-                    <Button variant="contained" sx={{ background: "red" }} onClick={handleDeleteAccount}>Deletar</Button>
+                    <Button variant="solid" color='danger' onClick={handleDeleteAccount}>Deletar</Button>
                 </Box>
             </div>
         </Box>
@@ -79,17 +79,32 @@ export default function ModalDeleteAccount(props) {
 
     const handleDeleteAccount = () => {
         const token = localStorage.getItem("token");
-        api.delete("/company/", {
-            headers: {
-                Authorization: "Bearer " + token
-            }
-        }).then(response => {
-            setStep(2);
-            loggout()
-            setTimeout(() => {
-                navigate("/")
-            }, 2000);
-        })
+        if(props.isUser){
+            api.delete("/user/", {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            }).then(response => {
+                setStep(2);
+                loggout()
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000);
+            })
+        } else {
+            api.delete("/company/", {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            }).then(response => {
+                setStep(2);
+                loggout()
+                setTimeout(() => {
+                    navigate("/")
+                }, 2000);
+            })
+        }
+
     }
 
     return (
