@@ -26,8 +26,6 @@ export default function JobCard(props){
     return (
         <div className="job-card card">
             <h2>{props.props.jobTitle}</h2>
-            <h3>{props.props.companyId}</h3>
-            <p><b>Salário proposto:</b> R${props.props.income}</p>
             <p>{props.props.jobDesc.substring(0, 245)}{props.props.jobDesc.length >= 245 ? "..." : ""}</p>
         <div>
             <Button onClick={handleOpenJobPage}>{isUserAlreadyParticipant() ? "Inscrito" : "Ver oportunidade"}</Button>

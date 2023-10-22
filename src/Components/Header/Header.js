@@ -39,7 +39,7 @@ function Header() {
 
     const search = function(){
         if(query == ""){
-            alert("insira pelo menos uma palavra chave para a busca")
+            setShowError(true);
         } else {
             navigate('/search/', {state: {keywords: query}})
         }
@@ -112,7 +112,6 @@ function Header() {
     }
     return(
         <div className='header'>
-            {showError && <ModalError closeError={setShowError} errorMsg="Não foi possivel encontrar vagas"/>}
             <div className='title-logo'>
                 <h1 onClick={() => {navigate("/")}}>
                     Hive
@@ -131,7 +130,7 @@ function Header() {
             </div>
 
             {renderOptionsLogin()}
-
+            {showError && <ModalError closeError={setShowError} errorMsg="Insira pelo menos uma palavra chave"/>}
         </div>
     )
 }

@@ -5,6 +5,7 @@ import { Button, Modal, Box, TextField, FormControl, InputLabel, Select, MenuIte
 import "./companyPage.css";
 import AuthContext from "../../Context/UserContext";
 import api from "../../api";
+import {InputAdornment} from "@mui/material";
 import JobCard from "../../JobCard/JobCard";
 
 export default function OpenJobsCompanyPage() {
@@ -261,6 +262,9 @@ export default function OpenJobsCompanyPage() {
                             error={!!jobModalErrorMsgs.income}
                             helperText={jobModalErrorMsgs.income}
                             onChange={handleNewJobInfoChange}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start">R$</InputAdornment>,
+                              }}
                         />
                         <FormGroup>
                             <FormControlLabel control={<Switch defaultChecked />}

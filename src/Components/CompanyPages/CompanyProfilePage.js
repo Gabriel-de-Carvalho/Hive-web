@@ -96,18 +96,18 @@ export default function CompanyProfilePage() {
                         <h2> {user.company.companyName}</h2>
                     </div>
                     <div className="profile-company-info info-email">
-                        Email: {user.company.companyEmail}
+                        {user.company.companyEmail}
                     </div>
                     <div className="profile-company-info info-site">
-                        <div>site da empresa: {user.company.siteCompany}</div>
+                        <div>{user.company.siteCompany}</div>
                     </div>
                     <div className="profile-company-info info-employess">
-                        <div>Quantidade de funcionários: {user.company.numberEmployees}</div>
+                        <div>{user.company.numberEmployees} funcionários</div>
                     </div>
                     <div className="profile-company-info info-location">
-                        <div>País: {user.company.country}</div>
-                        <div>Estado: {user.company.state}</div>
-                        <div>cidade: {user.company.city}</div>
+                        <div>{user.company.country}</div>
+                        <div>{user.company.state}</div>
+                        <div>{user.company.city}</div>
                     </div>
                     
                     <div className="profile-company-info info-buttons-action">
