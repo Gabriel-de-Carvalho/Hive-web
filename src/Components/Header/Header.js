@@ -96,8 +96,8 @@ function Header() {
     const renderOptionsLogin = () => {
         if(!auth.logged){
             return <div className="header-login">
-                 <Button sx={{background: "white", color: "black", borderRadius: 4, mr: 4}} variant='contained' onClick={() => navigate('/login')}>Entrar</Button>
-                 <Button sx={{mr: 4}}onClick={() => navigate("/signup")} variant="contained">Cadastrar-se</Button>
+                 <Button size='medium' sx={{mr:1, background: "white", color: "black", borderRadius: 4}} variant='contained' onClick={() => navigate('/login')}>Entrar</Button>
+                 <Button  sx={{mr:1}} size='medium' onClick={() => navigate("/signup")} variant="contained">Cadastrar</Button>
             </div> 
         } else {
             return <div className='profile-header'>

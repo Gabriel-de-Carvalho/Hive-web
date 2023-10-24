@@ -8,7 +8,7 @@ export default function Experience(props){
 
                     <div className="experience">
                         <h2>{props.experience.jobTitle}</h2>
-                        <p>{props.experience.dateInit.split("T")[0]} - {props.experience.currentJob ? "presente" : dateEnd}</p>
+                        <p>{props.experience.dateInit.split("T")[0]} - {!props.experience.currentJob ? "presente" : dateEnd}</p>
                         <p>descrição das atividades:</p>
                         <p>{props.experience.jobDesc}</p>
                     </div>

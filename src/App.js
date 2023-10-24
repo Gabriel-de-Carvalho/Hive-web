@@ -12,7 +12,7 @@ import {
 import Search from './Components/Search/Search';
 import api from './api';
 import Profile from './Components/Profile/Profile';
-import Signup from './Components/Signup/Signup';
+import Signup from './Components/Signup/signup';
 import OpenJobsCompanyPage from './Components/CompanyPages/OpenJobsCompanyPage';
 import JobPageCompany from './Components/JobPage/JobPageCompany';
 import ClosedJobsCompanyPage from './Components/CompanyPages/ClosedJobsCompanyPage';

@@ -54,7 +54,9 @@ export default function Signup() {
 
     const navigate = useNavigate();
 
-    
+    const handleChangeForm = () => {
+        setIsCompany(!isCompany);
+    }
 
     const createCompany = () => {
         if(validateForm()){
@@ -70,6 +72,7 @@ export default function Signup() {
 
     const createUser = () => {
         if(validateForm()){
+            console.log(isCompany)
             api.post("/user/", userInfo).then(response => {
                 console.log(response);
                 setShowLoadingScreen(true);
@@ -88,9 +91,10 @@ export default function Signup() {
                 birthDate: signUpInfoUser.birthDate === "" ? "Insira uma cidade" : ""
             }
             setSignUpInfoUserErrorMsg(newErrorMsgs);
-
+            console.log(Object.values(signUpInfoUserErrorMsg).every(error => error === ''))
             return Object.values(signUpInfoUserErrorMsg).every(error => error === '');
         } else {    
+            console.log("nao era para entrar aqui")
             const newErrorMsgs = {
                 companyName: signUpInfoCompany.companyName === "" ? "Insirá um nome válido para a empresa" : "",
                 companyEmail: !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(signUpInfoCompany.companyEmail) === "" ? "Formato inválido de email" : "",
@@ -182,7 +186,7 @@ export default function Signup() {
             <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                     <FormGroup>
                         <FormControlLabel control={<Switch defaultChecked />} 
-                        onChange={() => setIsCompany(!isCompany)}
+                        onChange={handleChangeForm}
                         checked={isCompany}
                         label={isCompany ? "Cadastar uma pessoa": "Cadastrar uma empresa"} />
                     </FormGroup>
@@ -284,7 +288,7 @@ export default function Signup() {
              <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
                     <FormGroup>
                         <FormControlLabel control={<Switch defaultChecked />} 
-                        onChange={() => setIsCompany(!isCompany)}
+                        onChange={handleChangeForm}
                         checked={isCompany}
                         label={isCompany ? "Cadastrar uma empresa": "Cadastar uma pessoa"} 
                         sx={{ m:1}}/>

@@ -33,7 +33,7 @@ export default function ModalError(props) {
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Mensagem de Erro
+            Algo deu Errado
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {props.errorMsg}

@@ -111,7 +111,7 @@ export default function CompanyProfilePage() {
                     </div>
                     
                     <div className="profile-company-info info-buttons-action">
-                        <Button onClick={() => setCompanyInfoModalShow(true)} variant="primary" sx={{mr: 3, background: "blue"}}>Editar perfil</Button>
+                        <Button onClick={() => setCompanyInfoModalShow(true)} variant="primary" sx={{mr: 3, background: "blue", color: "white"}}>Editar perfil</Button>
                         <Button onClick={() => setShowModalDeleteAccount(true)} variant="solid" color="danger">Deletar perfil</Button>
                     </div>
                     </div>
@@ -139,7 +139,7 @@ export default function CompanyProfilePage() {
                             value={companyInfoUpdateForm.companyName}
                             sx={{ m: 1 }}
                             error={!!modalUpdateErrors.companyName}
-                            helperText={companyInfoUpdateForm.companyName}
+                            helperText={modalUpdateErrors.companyName}
                             variant="outlined"
                             onChange={onChangeModalCompanyInfo}
 

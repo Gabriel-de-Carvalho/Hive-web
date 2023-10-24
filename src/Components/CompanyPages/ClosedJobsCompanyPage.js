@@ -29,7 +29,7 @@ export default function ClosedJobsCompanyPage() {
     const handleListingRendering = () => {
         if(closedJobsList.length !== 0) {
             
-            return <div className="list-jobs">
+            return <div className="list-jobs-closed">
                 {closedJobsList.map(job => <JobCard props={job}/>)}
             </div>
         } else {

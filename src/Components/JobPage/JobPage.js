@@ -37,6 +37,8 @@ export default function JobPage() {
     const [loadingButton, setLoadingButton] = useState(false);
     const [sendRequestButton, setSendRequestButton] = useState("primary");
 
+    const [sucessMsg, setSuccessMessage] = useState("Inscrever-se na vaga");
+
     const auth = useContext(AuthContext);
     const navigate = useNavigate();
     console.log(auth)
@@ -61,6 +63,7 @@ export default function JobPage() {
                         setTimeout(() => {
                             setLoadingButton(false);
                             setSendRequestButton("success")
+                            setSuccessMessage("Inscrito")
                         }, 2000);
                     }).catch((error) => {
                         console.log(error)
@@ -100,7 +103,7 @@ export default function JobPage() {
                 {renderUploadFile()}
                 {fileSetted ? <p>{file.name}</p> : ""}
                 {fileError ? <p style={{ color: "red", "margin-top": 0 }}>{fileErrorMsg}</p> : ""}
-                {state.jobInfo.isParticipant ? <Button variant="solid" color="success">Você já está inscrito nessa vaga<CheckIcon /></Button> : <Button variant="solid" onClick={handleInscription} color={sendRequestButton} loading={loadingButton}>Inscrever-se na vaga</Button>}
+                {state.jobInfo.isParticipant ? <Button variant="solid" color="success">Você já está inscrito nessa vaga<CheckIcon /></Button> : <Button variant="solid" onClick={handleInscription} color={sendRequestButton} loading={loadingButton}>{sucessMsg}</Button>}
             </div>
         } else {
             return <div className="button-applicant-group">

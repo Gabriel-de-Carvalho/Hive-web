@@ -170,7 +170,7 @@ export default function OpenJobsCompanyPage() {
                     {handleListingRendering()}
                 </div>
                 <div>
-                <Pagination count={countPages} page={page + 1} onChange={handlePageChange} sx={{ display: "flex", justifyContent: "center", alignContent: "center" }} />
+                <Pagination count={countPages} page={page + 1} onChange={handlePageChange} sx={{ display: "flex", justifyContent: "center", alignContent: "center", mt: 2}} />
                 </div>
             </div>
             <Modal
@@ -254,7 +254,7 @@ export default function OpenJobsCompanyPage() {
                     <Box sx={{ display: "flex" }}>
                         <TextField
                             label="Salário inicial"
-                            sx={{ m: 1, width: '45ch' }}
+                            sx={{ m: 1, width: '43ch' }}
                             variant="outlined"
                             rows={4}
                             name="income"
@@ -278,7 +278,7 @@ export default function OpenJobsCompanyPage() {
                     </Box>
                     <Box sx={{ display: "flex" }}>
                         <FormControl
-                            sx={{ m: 1, width: '45ch' }}
+                            sx={{ m: 1, width: '43ch' }}
                         >
                             <InputLabel id="type-job">Tipo de trabalho</InputLabel>
                             <Select

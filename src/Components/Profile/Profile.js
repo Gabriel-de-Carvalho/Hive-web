@@ -97,7 +97,6 @@ export default function Profile() {
                 setSuccessMsg("Dados alterados com sucesso!")
                 setShowModalSuccess(true);
                 setUserInfoModal(false);
-
             })
             setUserInfo({
                 user: "",

@@ -67,7 +67,6 @@ export default function ModalDeleteAccount(props) {
         auth.setLogged(false);
         auth.setCompany({});
         localStorage.removeItem("token");
-        navigate("/");
     }
 
     const handleStepsScreen = () => {

@@ -17,7 +17,9 @@ export default function JobCard(props){
     }
 
     const isUserAlreadyParticipant = () => {
-        if(auth.isLogged){
+        console.log(auth)
+        if(auth.logged){
+            
             return props.jobsIds.includes(props.props.id)
         }
         return false;
@@ -26,7 +28,7 @@ export default function JobCard(props){
     return (
         <div className="job-card card">
             <h2>{props.props.jobTitle}</h2>
-            <p>{props.props.jobDesc.substring(0, 245)}{props.props.jobDesc.length >= 245 ? "..." : ""}</p>
+            <p>{props.props.jobDesc.substring(0, 145)}{props.props.jobDesc.length >= 245 ? "..." : ""}</p>
         <div>
             <Button onClick={handleOpenJobPage}>{isUserAlreadyParticipant() ? "Inscrito" : "Ver oportunidade"}</Button>
         </div>

@@ -29,7 +29,7 @@ export default function JobPageCompany(){
     const handleParticipantsListing = () => {
         if(participants.length === 0){
             return <div>
-                <h2>Não há participants inscritos na vaga ainda</h2>
+                <h2>Não há participantes inscritos na vaga ainda</h2>
             </div>
         } else {
             console.log(participants)
@@ -63,11 +63,14 @@ export default function JobPageCompany(){
                     </div>
                     <p>{state.jobInfo.jobDesc}</p>
                 <div>
-                    <Button variant="outlined" onClick={handleCloseJob} sx={{background: "red", color:"white"}}>Encerrar Vaga</Button>
+                   {state.jobInfo.active ? <Button variant="outlined" onClick={handleCloseJob} sx={{background: "red", color:"white"}}>Encerrar Vaga</Button> : <div></div>}
                 </div>
                 </div>
                 <div className="participants-job">
+                    <div className="title-job-page-company">
                     <h2>Participantes</h2>
+                    </div>
+                    
                     <div className="participants-list">
                     <div className="list-jobs-header">
                         <div>Nome do participante</div>

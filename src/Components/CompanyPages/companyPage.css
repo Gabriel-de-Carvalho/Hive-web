@@ -29,6 +29,11 @@
 
 }
 
+.list-jobs-closed{
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+
 .job-list{
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
@@ -81,6 +86,7 @@
     flex-direction: row;
     justify-content: center;
 }
+
 
 
 
