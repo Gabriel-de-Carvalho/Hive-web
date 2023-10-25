@@ -88,7 +88,7 @@ var handleJobPage = () => {
     <Router>
       <AuthContext.Provider value={{user, logged, setUser, setLogged, company, setCompany, handleFetchInfoUser}}>
       <Routes>
-        <Route path='Hive-web/' element={<LandPage/>}/>
+        <Route path='/' element={<LandPage/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/search' element={<Search/>}/>
         <Route path='/job/' element={handleJobPage()}/>
