@@ -34,7 +34,7 @@ function Header() {
         auth.setLogged(false);
         auth.setCompany({});
         localStorage.clear();
-        navigate("Hive-web/");
+        navigate("/");
     }
 
     const search = function(){

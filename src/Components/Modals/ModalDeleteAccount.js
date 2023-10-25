@@ -87,7 +87,7 @@ export default function ModalDeleteAccount(props) {
                 setStep(2);
                 loggout()
                 setTimeout(() => {
-                    navigate("Hive-web/")
+                    navigate("/")
                 }, 2000);
             })
         } else {
@@ -99,7 +99,7 @@ export default function ModalDeleteAccount(props) {
                 setStep(2);
                 loggout()
                 setTimeout(() => {
-                    navigate("Hive-web/")
+                    navigate("/")
                 }, 2000);
             })
         }

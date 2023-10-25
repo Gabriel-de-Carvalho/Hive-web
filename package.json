@@ -2,7 +2,6 @@
   "name": "hive-web",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://gabriel-de-carvalho.github.io/Hive-web",
   "dependencies": {
     "@csstools/normalize.css": "github:csstools/normalize.css",
     "@emotion/react": "^11.11.1",

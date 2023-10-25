@@ -48,7 +48,7 @@ function Login() {
                 ).then(response => {
                     localStorage.setItem('token', response.data);
                     auth.handleFetchInfoUser();
-                    navigate("Hive-web/");
+                    navigate("/");
                 }).catch(err => {
                     setShowError(true);
                 })
@@ -63,7 +63,7 @@ function Login() {
                     console.log(response)
                     localStorage.setItem('token', response.data);
                     auth.handleFetchInfoUser()
-                    navigate("Hive-web/");
+                    navigate("/");
                 }).catch(err => {
                     setShowError(true);
                 })
