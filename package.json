@@ -1,7 +1,6 @@
 {
   "name": "hive-web",
   "version": "0.1.0",
-  "homepage": ".",
   "private": true,
   "dependencies": {
     "@csstools/normalize.css": "github:csstools/normalize.css",
